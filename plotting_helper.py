@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 import pandas as pd
 import statsmodels.api as sm
+import streamlit as st
 plt.rcParams['figure.dpi'] = 227
 
 gain = lambda x: x if x > 0 else 0
@@ -25,7 +26,8 @@ def bollinger_bands(stock, std=2):
     plt.title('Bollinger Bands', fontSize=15)
     plt.ylabel('Price', fontSize=12)
     plt.xlim([stock.index.min(), stock.index.max()])
-    plt.show()
+    #plt.show()
+    st.pyplot()
 
 def volume(stock):
     # Volume plot
@@ -46,7 +48,8 @@ def macd(stock):
     plt.legend(frameon=True, loc=1, ncol=1, fontsize=10, borderpad=.6)
     plt.title('MACD', fontSize=15)
     plt.ylabel('Strength', fontSize=12)
-    plt.show()    
+    st.pyplot()
+    #plt.show()    
 
 def rsi(stock):
     # RSI
