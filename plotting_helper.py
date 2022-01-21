@@ -3,6 +3,7 @@ import matplotlib.lines as mlines
 import pandas as pd
 import statsmodels.api as sm
 import streamlit as st
+import numpy as np
 plt.rcParams['figure.dpi'] = 227
 
 gain = lambda x: x if x > 0 else 0
@@ -10,6 +11,35 @@ loss = lambda x: abs(x) if x < 0 else 0
 
 def display_predictions():
     pass
+
+def MACrossOver(data, shortWindow, longWindow):
+  signals = pd.DataFrame(index=data.index)
+  signals['tradeSignal'] = 0.0
+  signals['MA20'] = data['Close'].rolling(window=shortWindow, 
+                                                min_periods=1, center=False).mean()
+  signals['MA100'] = data['Close'].rolling(window=longWindow, 
+                                                         min_periods=1, center=False).mean()
+  signals['tradeSignal'][shortWindow:] = np.where(signals['MA20'][shortWindow:] > signals['MA100'][shortWindow:], 1.0, 0.0)
+  signals['finalSignal'] = signals['tradeSignal'].diff()
+  return signals
+
+
+def buynsell(newSeries, data):
+  newSeries = newSeries['2021-01-01':]
+  DATA = data['2021-01-01':]
+  fig = plt.figure(figsize= (15,6))
+  ax1 = fig.add_subplot(111)
+  DATA["Adj Close"].plot(ax=ax1, lw=.6)
+  newSeries["MA20"].plot(ax=ax1, lw=2.)
+  newSeries["MA100"].plot(ax=ax1,  lw=2.)
+  ax1.plot(newSeries.loc[newSeries.finalSignal== 1.0].index, DATA["Adj Close"][newSeries.finalSignal == 1.0],'^', markersize=7, color='green')
+  ax1.plot(newSeries.loc[newSeries.finalSignal== -1.0].index, DATA["Adj Close"][newSeries.finalSignal == -1.0],'v', markersize=7, color='red')
+  plt.legend(["Adj Close Price","Short mavg","Long mavg","BuySignal","SellSignal"])
+  plt.title("Simple Moving Average Crossover Strategy")
+  st.pyplot()
+  #plt.show()
+
+
 
 def bollinger_bands(stock, std=2):    
     

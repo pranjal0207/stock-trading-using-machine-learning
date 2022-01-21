@@ -120,6 +120,7 @@ def predict(stockName):
   st.pyplot()
 
 def predictEmail(stockName):
+  signal = false
   df=pd.read_csv('stocks/' + stockName + '.csv')
   df.head()
 
@@ -150,10 +151,10 @@ def predictEmail(stockName):
   testAccuracy = 100 - (math.sqrt(mean_squared_error(ytest,test_predict))/100)
   trainAccuracy = 100 - (math.sqrt(mean_squared_error(y_train,train_predict))/100)
 
+
   print ("Train Accuracy = ", trainAccuracy, "%")
   print ("Test Accuracy = ", testAccuracy, "%\n")
 
-  
   look_back=100
   x_input=test_data[325:].reshape(1,-1)
   x_input.shape
@@ -189,7 +190,15 @@ def predictEmail(stockName):
           lst_output.extend(yhat.tolist())
           i=i+1
 
+
+  
+  if (scaler.inverse_transform(df1[1116:])[-1] - scaler.inverse_transform(lst_output)[0] > 0):
+	  signal = False
+
+  else:
+	  signal = True
+
   print("\n")
-  return scaler.inverse_transform(lst_output)[:7]
+  return (scaler.inverse_transform(lst_output)[:7], signal)
 
   
