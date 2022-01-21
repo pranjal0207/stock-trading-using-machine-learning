@@ -5,3 +5,4 @@ numpy
 streamlit
 sklearn
 matplotlib
+statsmodels
