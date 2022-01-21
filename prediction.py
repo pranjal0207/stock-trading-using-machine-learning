@@ -112,7 +112,7 @@ def predict(stockName):
   day_pred=np.arange(101,131)
 
   print("\n")
-  plt.plot(day_new,scaler.inverse_transform(df1[1114:]), label = "last 100 days")
+  plt.plot(day_new,scaler.inverse_transform(df1[1116:]), label = "last 100 days")
   plt.plot(day_pred,scaler.inverse_transform(lst_output), label = "predicted 30 days")
   plt.xlabel("Days")
   plt.ylabel("Cost of share (in INR)")
