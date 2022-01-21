@@ -19,12 +19,12 @@ def create_dataset(dataset, time_step=1):
 	return np.array(dataX), np.array(dataY)
 
 def predict(stockName):
-  df=pd.read_csv(stockName + '.csv')
+  df=pd.read_csv('stocks/'+ stockName + '.csv')
   df.head()
 
   df1 = df.reset_index()['Close']
 
-  model = load_model(stockName + '.h5')
+  model = load_model('models/' + stockName + '.h5')
 
   scaler=MinMaxScaler(feature_range=(0,1))
   df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
@@ -120,12 +120,12 @@ def predict(stockName):
   st.pyplot()
 
 def predictEmail(stockName):
-  df=pd.read_csv(stockName + '.csv')
+  df=pd.read_csv('stocks/' + stockName + '.csv')
   df.head()
 
   df1 = df.reset_index()['Close']
 
-  model = load_model(stockName + '.h5')
+  model = load_model('models/' + stockName + '.h5')
 
   scaler=MinMaxScaler(feature_range=(0,1))
   df1=scaler.fit_transform(np.array(df1).reshape(-1,1))
