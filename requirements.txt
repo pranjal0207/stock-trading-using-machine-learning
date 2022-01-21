@@ -4,5 +4,5 @@ pandas
 numpy
 streamlit
 sklearn
-matplotlib3.4.2
+matplotlib3.4
 statsmodels
