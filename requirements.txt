@@ -6,3 +6,4 @@ streamlit
 sklearn
 matplotlib==3.4.2
 statsmodels
+secure-smtplib
