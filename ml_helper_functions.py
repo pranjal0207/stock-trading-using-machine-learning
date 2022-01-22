@@ -129,7 +129,7 @@ def bb_trading(stock, budget=15000, u=0.03, l=0.03, show_graph=True, show_return
     if show_return == True:
         print('Number of Trades: {}'.format(len(net)))
         print('Time Frame: {} days'.format((net[-1][0] - net[0][0]).days))
-        print('Profit: ${:.2f} | {}%'.format(profit, round(profit/budget*100, 2)))
+        print('Profit: Rs.{:.2f} | {}%'.format(profit, round(profit/budget*100, 2)))
 
     if show_graph == True:
         plotting_helper.trading_history(stock.set_index('Date'), net)
@@ -171,7 +171,7 @@ def macd_trading(stock, budget=15000, show_graph=True, show_return=True):
     if show_return == True:
         print('Number of Trades: {}'.format(len(net)))
         print('Time Frame: {} days'.format((net[-1][0] - net[0][0]).days))
-        print('Profit: ${:.2f} | {}%'.format(profit, round(profit/budget*100, 2)))
+        print('Profit: Rs. {:.2f} | {}%'.format(profit, round(profit/budget*100, 2)))
 
     if show_graph == True:
         plotting_helper.trading_history(stock.set_index('Date'), net)
